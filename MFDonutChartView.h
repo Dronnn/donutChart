@@ -114,9 +114,17 @@
 /**
  *  Delegate
  */
-@property (nonatomic, strong) id                              delegate;
+@property (nonatomic, strong) id      delegate;
 
-@property(nonatomic, assign) BOOL showShadow;
+/**
+ *  Line width
+ */
+@property (nonatomic, assign) CGFloat lineWidth;
+
+/**
+ *  Show shadow
+ */
+@property (nonatomic, assign) BOOL    showShadow;
 
 /**
  *  Refresh diagram

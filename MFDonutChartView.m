@@ -42,23 +42,16 @@
 
 - (void)initialize
 {
-    self.contentMode = UIViewContentModeRedraw;
+    self.contentMode     = UIViewContentModeRedraw;
     self.backgroundColor = [UIColor clearColor];
 
-    self.showApearAnim = YES;
-
-    //Shadow
-//    self.layer.shadowColor = [[UIColor blackColor] CGColor];
-//    self.layer.shadowOffset = CGSizeMake(0.0f, 2.5f);
-//    self.layer.shadowRadius = 1.0f;
-//    self.layer.shadowOpacity = 0.8f;
+    self.showApearAnim   = YES;
+    self.lineWidth       = 20;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
-//    [self updatePath];
 }
 
 -(void)reloadData
@@ -82,7 +75,6 @@
 {
     //Preparing
     CGFloat theHalf = rect.size.width/2;
-    CGFloat lineWidth = 20;
     CGFloat radius;
 
     CGFloat centerX = theHalf;
@@ -113,9 +105,9 @@
         CGFloat value = [self.dataSource donutChartView:self valueForSliceAtIndex:i];
 
         if ([self.dataSource respondsToSelector:@selector(donutChartView:lineWidtForSliceAtIndex:)])
-            lineWidth = [self.dataSource donutChartView:self lineWidtForSliceAtIndex:i];
+            self.lineWidth = [self.dataSource donutChartView:self lineWidtForSliceAtIndex:i];
 
-        radius = theHalf - lineWidth / 2 - 5.0f;
+        radius = theHalf - self.lineWidth / 2 - 5.0f;
         if ([self.dataSource respondsToSelector:@selector(donutChartView:selectedLineIncreaseWidthForSliceAtIndex:)])
             radius += [self.dataSource donutChartView:self selectedLineIncreaseWidthForSliceAtIndex:i];
 
@@ -132,7 +124,7 @@
 
         CAShapeLayer* progressLayer = [CAShapeLayer layer];
         progressLayer.frame         = self.bounds;
-        progressLayer.lineWidth     = lineWidth;
+        progressLayer.lineWidth     = self.lineWidth;
         progressLayer.strokeColor   = drawColor.CGColor;
         progressLayer.fillColor     = nil;
         progressLayer.strokeStart   = 0.0f;
@@ -194,7 +186,7 @@
 - (BOOL) isPoint:(CGPoint)point onArc:(CGPoint)arc
 {
     CGFloat theHalf = self.frame.size.width / 2;
-    CGFloat lineWidth = 25;
+    CGFloat lineWidth = self.lineWidth + 5;
 
     CGFloat radius = theHalf - lineWidth / 2;
 
